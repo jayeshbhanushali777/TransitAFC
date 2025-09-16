@@ -1,0 +1,6 @@
+@TransitAFC.Services.Booking.API_HostAddress = http://localhost:5115
+
+GET {{TransitAFC.Services.Booking.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

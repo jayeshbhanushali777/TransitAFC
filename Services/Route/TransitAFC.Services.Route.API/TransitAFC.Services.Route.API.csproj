@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>91e516a8-92a0-4dd2-9813-7bddc0817852</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Google.Cloud.AIPlatform.V1" Version="3.45.0" />
+    <PackageReference Include="Google.Cloud.Translation.V2" Version="3.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="9.0.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="4.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="9.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Common\TransitAFC.Shared.Common\TransitAFC.Shared.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\GoogleCloud\TransitAFC.Shared.GoogleCloud\TransitAFC.Shared.GoogleCloud.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Security\TransitAFC.Shared.Security\TransitAFC.Shared.Security.csproj" />
+    <ProjectReference Include="..\TransitAFC.Services.Route.Core\TransitAFC.Services.Route.Core.csproj" />
+    <ProjectReference Include="..\TransitAFC.Services.Route.Infrastructure\TransitAFC.Services.Route.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
