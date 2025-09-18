@@ -1,0 +1,8 @@
+{
+  "Routes": [
+    // Same routes as above but with localhost endpoints
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7000"
+  }
+}

@@ -1,0 +1,6 @@
+@TransitAFC.Gateway_HostAddress = http://localhost:5163
+
+GET {{TransitAFC.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

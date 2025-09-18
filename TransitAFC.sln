@@ -66,6 +66,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransitAFC.Services.Ticket.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransitAFC.Services.Ticket.API", "Services\Ticket\TransitAFC.Services.Ticket.API\TransitAFC.Services.Ticket.API.csproj", "{3BD00D5B-BF6C-4DFC-A5F6-5A02469FEE0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransitAFC.Gateway", "Gateway\TransitAFC.Gateway\TransitAFC.Gateway.csproj", "{82A82BCF-EF66-4A0D-882A-06B273DFDE72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +146,10 @@ Global
 		{3BD00D5B-BF6C-4DFC-A5F6-5A02469FEE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BD00D5B-BF6C-4DFC-A5F6-5A02469FEE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BD00D5B-BF6C-4DFC-A5F6-5A02469FEE0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82A82BCF-EF66-4A0D-882A-06B273DFDE72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82A82BCF-EF66-4A0D-882A-06B273DFDE72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82A82BCF-EF66-4A0D-882A-06B273DFDE72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82A82BCF-EF66-4A0D-882A-06B273DFDE72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +178,7 @@ Global
 		{080E7653-ECD3-4D66-A89A-62F586BC813B} = {937DBBBE-3DF2-4F31-9133-E5C1CF1FD059}
 		{9294BAFC-B2EF-4827-AF02-3EC802C11BD2} = {937DBBBE-3DF2-4F31-9133-E5C1CF1FD059}
 		{3BD00D5B-BF6C-4DFC-A5F6-5A02469FEE0C} = {937DBBBE-3DF2-4F31-9133-E5C1CF1FD059}
+		{82A82BCF-EF66-4A0D-882A-06B273DFDE72} = {B7CF7C63-1D27-4748-BAA5-B1C544549C70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9FA6F400-F48E-48E8-BC97-AD3201EEBB65}
