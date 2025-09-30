@@ -182,15 +182,24 @@ builder.Services.AddResponseCompression(options =>
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"API Request: {context.Request.Method} {context.Request.Path}");
+    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    context.Response.Headers.Add("Access-Control-Allow-Methods", "*");
+    context.Response.Headers.Add("Access-Control-Allow-Headers", "*");
+    await next();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Service V1");
-        c.RoutePrefix = "swagger"; // Set Swagger UI at the app's root
-    });
+    //app.UseSwaggerUI(c =>
+    //{
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Service V1");
+    //    c.RoutePrefix = "swagger"; // Set Swagger UI at the app's root
+    //});
 }
 
 app.UseResponseCompression();

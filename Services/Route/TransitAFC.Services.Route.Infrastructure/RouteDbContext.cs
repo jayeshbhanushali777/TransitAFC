@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetTopologySuite;
 using NetTopologySuite.IO;
+using NetTopologySuite.Geometries;
 using TransitAFC.Services.Route.Core.Models;
 
 namespace TransitAFC.Services.Route.Infrastructure
@@ -135,7 +136,10 @@ namespace TransitAFC.Services.Route.Infrastructure
 
         private static void SeedData(ModelBuilder modelBuilder)
         {
-            // Seed Transport Modes
+            // Use a fixed date instead of DateTime.UtcNow
+            var seedDate = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            // Seed Transport Modes with static values
             var busMode = new TransportMode
             {
                 Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
@@ -146,7 +150,8 @@ namespace TransitAFC.Services.Route.Infrastructure
                 FarePerKm = 2.00m,
                 MaxCapacity = 50,
                 IsRealTimeEnabled = true,
-                Color = "#FF6B35"
+                Color = "#FF6B35",
+                CreatedAt = seedDate,
             };
 
             var metroMode = new TransportMode
@@ -159,7 +164,8 @@ namespace TransitAFC.Services.Route.Infrastructure
                 FarePerKm = 3.00m,
                 MaxCapacity = 200,
                 IsRealTimeEnabled = true,
-                Color = "#004E89"
+                Color = "#004E89",
+                CreatedAt = seedDate,
             };
 
             var trainMode = new TransportMode
@@ -172,17 +178,16 @@ namespace TransitAFC.Services.Route.Infrastructure
                 FarePerKm = 1.50m,
                 MaxCapacity = 500,
                 IsRealTimeEnabled = false,
-                Color = "#009639"
+                Color = "#009639",
+                CreatedAt = seedDate,
             };
 
             modelBuilder.Entity<TransportMode>().HasData(busMode, metroMode, trainMode);
 
-
-            var wktReader = new WKTReader(NtsGeometryServices.Instance);
-
-            // Create static Point geometries using WKT
-            var churchgateLocation = wktReader.Read("POINT(72.8264 18.9322)");
-            var marineLinesLocation = wktReader.Read("POINT(72.8233 18.9467)");
+            // Create static geometry objects
+            var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+            var churchgateLocation = geometryFactory.CreatePoint(new Coordinate(72.8264, 18.9322));
+            var marineLinesLocation = geometryFactory.CreatePoint(new Coordinate(72.8233, 18.9467));
 
             // Seed sample stations with static geometry objects
             modelBuilder.Entity<Station>().HasData(
@@ -197,7 +202,7 @@ namespace TransitAFC.Services.Route.Infrastructure
                     PinCode = "400001",
                     Latitude = 18.9322,
                     Longitude = 72.8264,
-                    Location = (NetTopologySuite.Geometries.Point)churchgateLocation, // Static geometry object
+                    Location = churchgateLocation,
                     TransportModeId = Guid.Parse("33333333-3333-3333-3333-333333333333"), // Train
                     StationType = "Terminal",
                     HasWheelchairAccess = true,
@@ -205,7 +210,8 @@ namespace TransitAFC.Services.Route.Infrastructure
                     HasWiFi = true,
                     HasRestroom = true,
                     PlatformCount = 6,
-                    Amenities = "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]"
+                    Amenities = "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]",
+                    CreatedAt = seedDate,
                 },
                 new Station
                 {
@@ -218,7 +224,7 @@ namespace TransitAFC.Services.Route.Infrastructure
                     PinCode = "400002",
                     Latitude = 18.9467,
                     Longitude = 72.8233,
-                    Location = (NetTopologySuite.Geometries.Point)marineLinesLocation, // Static geometry object
+                    Location = marineLinesLocation,
                     TransportModeId = Guid.Parse("33333333-3333-3333-3333-333333333333"), // Train
                     StationType = "Regular",
                     HasWheelchairAccess = true,
@@ -226,7 +232,8 @@ namespace TransitAFC.Services.Route.Infrastructure
                     HasWiFi = true,
                     HasRestroom = true,
                     PlatformCount = 4,
-                    Amenities = "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]"
+                    Amenities = "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]",
+                    CreatedAt = seedDate,
                 }
             );
         }

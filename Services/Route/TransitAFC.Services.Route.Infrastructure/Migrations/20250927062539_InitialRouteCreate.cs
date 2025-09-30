@@ -210,9 +210,9 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                 columns: new[] { "Id", "BaseFare", "Code", "Color", "CreatedAt", "Description", "FarePerKm", "IconUrl", "IsActive", "IsDeleted", "IsRealTimeEnabled", "MaxCapacity", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), 5.00m, "BUS", "#FF6B35", new DateTime(2025, 9, 15, 13, 36, 37, 489, DateTimeKind.Utc).AddTicks(1519), "Public bus transportation", 2.00m, null, true, false, true, 50, "Bus", null },
-                    { new Guid("22222222-2222-2222-2222-222222222222"), 10.00m, "MET", "#004E89", new DateTime(2025, 9, 15, 13, 36, 37, 489, DateTimeKind.Utc).AddTicks(2572), "Metro rail system", 3.00m, null, true, false, true, 200, "Metro", null },
-                    { new Guid("33333333-3333-3333-3333-333333333333"), 15.00m, "TRN", "#009639", new DateTime(2025, 9, 15, 13, 36, 37, 489, DateTimeKind.Utc).AddTicks(2578), "Railway transportation", 1.50m, null, true, false, false, 500, "Train", null }
+                    { new Guid("11111111-1111-1111-1111-111111111111"), 5.00m, "BUS", "#FF6B35", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Public bus transportation", 2.00m, null, true, false, true, 50, "Bus", null },
+                    { new Guid("22222222-2222-2222-2222-222222222222"), 10.00m, "MET", "#004E89", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Metro rail system", 3.00m, null, true, false, true, 200, "Metro", null },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), 15.00m, "TRN", "#009639", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Railway transportation", 1.50m, null, true, false, false, 500, "Train", null }
                 });
 
             migrationBuilder.InsertData(
@@ -220,8 +220,8 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                 columns: new[] { "Id", "Address", "Amenities", "City", "Code", "CreatedAt", "HasParking", "HasRestroom", "HasWheelchairAccess", "HasWiFi", "IsActive", "IsDeleted", "LastUpdated", "Latitude", "Location", "Longitude", "Name", "PinCode", "PlatformCount", "State", "StationType", "TransportModeId", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { new Guid("44444444-4444-4444-4444-444444444444"), "Veer Nariman Road, Fort", "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]", "Mumbai", "CG", new DateTime(2025, 9, 15, 13, 36, 37, 500, DateTimeKind.Utc).AddTicks(534), true, true, true, true, true, false, null, 18.932200000000002, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("POINT (72.8264 18.9322)"), 72.826400000000007, "Churchgate", "400001", 6, "Maharashtra", "Terminal", new Guid("33333333-3333-3333-3333-333333333333"), null },
-                    { new Guid("55555555-5555-5555-5555-555555555555"), "Marine Drive", "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]", "Mumbai", "ML", new DateTime(2025, 9, 15, 13, 36, 37, 500, DateTimeKind.Utc).AddTicks(2295), false, true, true, true, true, false, null, 18.9467, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("POINT (72.8233 18.9467)"), 72.823300000000003, "Marine Lines", "400002", 4, "Maharashtra", "Regular", new Guid("33333333-3333-3333-3333-333333333333"), null }
+                    { new Guid("44444444-4444-4444-4444-444444444444"), "Veer Nariman Road, Fort", "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]", "Mumbai", "CG", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), true, true, true, true, true, false, null, 18.932200000000002, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (72.8264 18.9322)"), 72.826400000000007, "Churchgate", "400001", 6, "Maharashtra", "Terminal", new Guid("33333333-3333-3333-3333-333333333333"), null },
+                    { new Guid("55555555-5555-5555-5555-555555555555"), "Marine Drive", "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]", "Mumbai", "ML", new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, true, true, true, true, false, null, 18.9467, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (72.8233 18.9467)"), 72.823300000000003, "Marine Lines", "400002", 4, "Maharashtra", "Regular", new Guid("33333333-3333-3333-3333-333333333333"), null }
                 });
 
             migrationBuilder.CreateIndex(

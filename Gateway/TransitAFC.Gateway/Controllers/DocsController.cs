@@ -22,7 +22,8 @@ namespace TransitAFC.Gateway.Controllers
             var services = new[]
             {
                 new { Name = "User Service", Url = "https://localhost:7001/swagger", Description = "User management and authentication" },
-                new { Name = "Booking Service", Url = "https://localhost:7003/swagger", Description = "Route and booking management" },
+                new { Name = "Route Service", Url = "https://localhost:7002/swagger", Description = "Route management" },
+                new { Name = "Booking Service", Url = "https://localhost:7003/swagger", Description = "Booking management" },
                 new { Name = "Payment Service", Url = "https://localhost:7004/swagger", Description = "Payment processing" },
                 new { Name = "Ticket Service", Url = "https://localhost:7005/swagger", Description = "Ticket generation and validation" }
             };
@@ -47,6 +48,7 @@ namespace TransitAFC.Gateway.Controllers
             var serviceUrls = new Dictionary<string, string>
             {
                 { "users", "https://localhost:7001" },
+                { "routes", "https://localhost:7002" },
                 { "bookings", "https://localhost:7003" },
                 { "payments", "https://localhost:7004" },
                 { "tickets", "https://localhost:7005" }

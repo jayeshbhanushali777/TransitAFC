@@ -39,11 +39,13 @@ namespace TransitAFC.Services.User.API.Services
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
-                DateOfBirth = request.DateOfBirth,
+                //DateOfBirth = request.DateOfBirth,
                 Gender = request.Gender,
                 City = request.City,
                 State = request.State,
-                PinCode = request.PinCode
+                PinCode = request.PinCode,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
 
             var createdUser = await _userRepository.CreateAsync(user);

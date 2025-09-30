@@ -1,8 +1,7 @@
 {
   "Routes": [
-    // User Service Routes
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -10,23 +9,11 @@
           "Port": 7001
         }
       ],
-      "UpstreamPathTemplate": "/api/users/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
-      "Key": "users",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 100
-      }
+      "UpstreamPathTemplate": "/swagger/v1/swagger.json",
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamPathTemplate": "/api/Users/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -34,21 +21,35 @@
           "Port": 7001
         }
       ],
-      "UpstreamPathTemplate": "/api/auth/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "Key": "auth",
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 10
-      }
+      "UpstreamPathTemplate": "/api/Users/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
-
-    // Booking Service Routes
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/api/Stations/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Stations/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Routes/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Routes/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Bookings/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -56,69 +57,11 @@
           "Port": 7003
         }
       ],
-      "UpstreamPathTemplate": "/api/bookings/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
-      "Key": "bookings",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 200
-      }
+      "UpstreamPathTemplate": "/api/Bookings/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
     {
-      "DownstreamPathTemplate": "/api/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/routes/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "Key": "routes",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 500
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/stations/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "Key": "stations",
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 1000
-      }
-    },
-
-    // Payment Service Routes
-    {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/api/Payments/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -126,23 +69,11 @@
           "Port": 7004
         }
       ],
-      "UpstreamPathTemplate": "/api/payments/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
-      "Key": "payments",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 50
-      }
+      "UpstreamPathTemplate": "/api/Payments/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/api/Webhooks/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -150,14 +81,11 @@
           "Port": 7004
         }
       ],
-      "UpstreamPathTemplate": "/api/webhooks/{everything}",
-      "UpstreamHttpMethod": [ "POST" ],
-      "Key": "webhooks"
+      "UpstreamPathTemplate": "/api/Webhooks/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
-
-    // Ticket Service Routes
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/api/Tickets/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -165,23 +93,11 @@
           "Port": 7005
         }
       ],
-      "UpstreamPathTemplate": "/api/tickets/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "PATCH" ],
-      "Key": "tickets",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 100
-      }
+      "UpstreamPathTemplate": "/api/Tickets/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/api/Validation/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -189,41 +105,11 @@
           "Port": 7005
         }
       ],
-      "UpstreamPathTemplate": "/api/validation/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "Key": "validation",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1m",
-        "PeriodTimespan": 60,
-        "Limit": 1000
-      }
-    }
-  ],
-  "Aggregates": [
-    {
-      "RouteKeys": [ "users", "bookings", "payments", "tickets" ],
-      "UpstreamPathTemplate": "/api/dashboard"
+      "UpstreamPathTemplate": "/api/Validation/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7000",
-    "RateLimitOptions": {
-      "ClientIdHeader": "ClientId",
-      "QuotaExceededMessage": "Rate limit exceeded. Please try again later.",
-      "RateLimitCounterPrefix": "ocelot",
-      "DisableRateLimitHeaders": false,
-      "HttpStatusCode": 429
-    },
-    "QoSOptions": {
-      "ExceptionsAllowedBeforeBreaking": 3,
-      "DurationOfBreak": 5000,
-      "TimeoutValue": 30000
-    }
+    "BaseUrl": "https://localhost:7000"
   }
 }

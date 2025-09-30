@@ -118,11 +118,20 @@ builder.Services.AddHostedService<BookingCleanupService>();
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"API Request: {context.Request.Method} {context.Request.Path}");
+    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    context.Response.Headers.Add("Access-Control-Allow-Methods", "*");
+    context.Response.Headers.Add("Access-Control-Allow-Headers", "*");
+    await next();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    //app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

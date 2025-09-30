@@ -9,7 +9,7 @@
         "JWT_SECRET": "TransitAFC2024SecureJWTKeyForDevelopmentAndTestingPurposes123!@#"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5065"
+      "applicationUrl": "http://localhost:5004"
     },
     "https": {
       "commandName": "Project",
@@ -20,7 +20,7 @@
         "JWT_SECRET": "TransitAFC2024SecureJWTKeyForDevelopmentAndTestingPurposes123!@#"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7171;http://localhost:5065"
+      "applicationUrl": "https://localhost:7004;http://localhost:5004"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -34,10 +34,10 @@
     "WSL": {
       "commandName": "WSL2",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:7171/swagger",
+      "launchUrl": "https://localhost:7004/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "https://localhost:7171;http://localhost:5065",
+        "ASPNETCORE_URLS": "https://localhost:7004;http://localhost:5004",
         "JWT_SECRET": "TransitAFC2024SecureJWTKeyForDevelopmentAndTestingPurposes123!@#"
       },
       "distributionName": ""

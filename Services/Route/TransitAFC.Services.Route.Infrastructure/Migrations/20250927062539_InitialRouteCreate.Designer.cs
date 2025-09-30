@@ -13,7 +13,7 @@ using TransitAFC.Services.Route.Infrastructure;
 namespace TransitAFC.Services.Route.Infrastructure.Migrations
 {
     [DbContext(typeof(RouteDbContext))]
-    [Migration("20250915133637_InitialRouteCreate")]
+    [Migration("20250927062539_InitialRouteCreate")]
     partial class InitialRouteCreate
     {
         /// <inheritdoc />
@@ -353,7 +353,7 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                             Amenities = "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]",
                             City = "Mumbai",
                             Code = "CG",
-                            CreatedAt = new DateTime(2025, 9, 15, 13, 36, 37, 500, DateTimeKind.Utc).AddTicks(534),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             HasParking = true,
                             HasRestroom = true,
                             HasWheelchairAccess = true,
@@ -361,7 +361,7 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             Latitude = 18.932200000000002,
-                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("POINT (72.8264 18.9322)"),
+                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (72.8264 18.9322)"),
                             Longitude = 72.826400000000007,
                             Name = "Churchgate",
                             PinCode = "400001",
@@ -377,7 +377,7 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                             Amenities = "[\"WiFi\",\"Restroom\",\"ATM\",\"Food Court\"]",
                             City = "Mumbai",
                             Code = "ML",
-                            CreatedAt = new DateTime(2025, 9, 15, 13, 36, 37, 500, DateTimeKind.Utc).AddTicks(2295),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             HasParking = false,
                             HasRestroom = true,
                             HasWheelchairAccess = true,
@@ -385,7 +385,7 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                             IsActive = true,
                             IsDeleted = false,
                             Latitude = 18.9467,
-                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("POINT (72.8233 18.9467)"),
+                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (72.8233 18.9467)"),
                             Longitude = 72.823300000000003,
                             Name = "Marine Lines",
                             PinCode = "400002",
@@ -464,7 +464,7 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                             BaseFare = 5.00m,
                             Code = "BUS",
                             Color = "#FF6B35",
-                            CreatedAt = new DateTime(2025, 9, 15, 13, 36, 37, 489, DateTimeKind.Utc).AddTicks(1519),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Public bus transportation",
                             FarePerKm = 2.00m,
                             IsActive = true,
@@ -479,7 +479,7 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                             BaseFare = 10.00m,
                             Code = "MET",
                             Color = "#004E89",
-                            CreatedAt = new DateTime(2025, 9, 15, 13, 36, 37, 489, DateTimeKind.Utc).AddTicks(2572),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Metro rail system",
                             FarePerKm = 3.00m,
                             IsActive = true,
@@ -494,7 +494,7 @@ namespace TransitAFC.Services.Route.Infrastructure.Migrations
                             BaseFare = 15.00m,
                             Code = "TRN",
                             Color = "#009639",
-                            CreatedAt = new DateTime(2025, 9, 15, 13, 36, 37, 489, DateTimeKind.Utc).AddTicks(2578),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Description = "Railway transportation",
                             FarePerKm = 1.50m,
                             IsActive = true,

@@ -9,7 +9,7 @@
         "JWT_SECRET": "TransitAFC2024SecureJWTKeyForDevelopmentAndTestingPurposes123!@#"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5298"
+      "applicationUrl": "http://localhost:5002"
     },
     "https": {
       "commandName": "Project",
@@ -20,7 +20,7 @@
         "JWT_SECRET": "TransitAFC2024SecureJWTKeyForDevelopmentAndTestingPurposes123!@#"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7288;http://localhost:5298"
+      "applicationUrl": "https://localhost:7002;http://localhost:5002"
     },
     "IIS Express": {
       "commandName": "IISExpress",
