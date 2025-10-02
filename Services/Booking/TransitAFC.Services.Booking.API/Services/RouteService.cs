@@ -21,7 +21,7 @@ namespace TransitAFC.Services.Booking.API.Services
             try
             {
                 var routeServiceUrl = _configuration["Services:RouteService:BaseUrl"];
-                var response = await _httpClient.GetAsync($"{routeServiceUrl}/api/routes/{routeId}");
+                var response = await _httpClient.GetAsync($"{routeServiceUrl}/api/routes/by-id/{routeId}");
 
                 if (!response.IsSuccessStatusCode)
                 {

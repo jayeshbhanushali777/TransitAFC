@@ -78,6 +78,26 @@ namespace TransitAFC.Services.Route.API.Controllers
             }
         }
 
+        [HttpGet("by-id/{routeId}")]
+        public async Task<ActionResult<ApiResponse<RouteDetailsResponse>>> GetRouteDetailsById(Guid routeId, [FromQuery] DateTime? date = null)
+        {
+            try
+            {
+                var response = await _routeService.GetRouteDetailsByIdAsync(routeId, date);
+                if (response == null)
+                {
+                    return NotFound(ApiResponse<RouteDetailsResponse>.FailureResult("Route not found"));
+                }
+
+                return Ok(ApiResponse<RouteDetailsResponse>.SuccessResult(response));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting route details for {routeId}", routeId);
+                return StatusCode(500, ApiResponse<RouteDetailsResponse>.FailureResult("Internal server error"));
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult<ApiResponse<List<RouteDetailsResponse>>>> GetAllRoutes([FromQuery] int skip = 0, [FromQuery] int take = 100)
         {

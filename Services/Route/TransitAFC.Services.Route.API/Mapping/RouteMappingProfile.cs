@@ -10,6 +10,7 @@ namespace TransitAFC.Services.Route.API.Mapping
         {
             // Route mappings
             CreateMap<Core.Models.Route, RouteDetailsResponse>()
+                .ForMember(dest => dest.RouteId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.TransportMode, opt => opt.MapFrom(src => src.TransportMode.Name))
                 .ForMember(dest => dest.Stations, opt => opt.Ignore())
                 .ForMember(dest => dest.Schedules, opt => opt.Ignore())

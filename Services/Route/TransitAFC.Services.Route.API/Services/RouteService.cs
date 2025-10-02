@@ -130,6 +130,24 @@ namespace TransitAFC.Services.Route.API.Services
             return response;
         }
 
+        public async Task<RouteDetailsResponse?> GetRouteDetailsByIdAsync(Guid routeId, DateTime? date = null)
+        {
+            var route = await _routeRepository.GetByIdAsync(routeId);
+            if (route == null)
+            {
+                return null;
+            }
+
+            var routeStations = await _routeRepository.GetRouteStationsAsync(route.Id);
+
+            var response = _mapper.Map<RouteDetailsResponse>(route);
+            response.Stations = _mapper.Map<List<RouteStationInfo>>(routeStations);
+
+            // TODO: Add schedule and real-time information
+
+            return response;
+        }
+
         public async Task<List<StationInfo>> GetNearbyStationsAsync(NearbyStationsRequest request)
         {
             var stations = await _stationRepository.GetNearbyStationsAsync(
