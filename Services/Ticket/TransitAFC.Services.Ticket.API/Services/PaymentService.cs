@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Headers;
+using System.Text.Json;
 using TransitAFC.Shared.Common.DTOs;
 
 namespace TransitAFC.Services.Ticket.API.Services
@@ -18,12 +19,14 @@ namespace TransitAFC.Services.Ticket.API.Services
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
         private readonly ILogger<PaymentService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PaymentService(HttpClient httpClient, IConfiguration configuration, ILogger<PaymentService> logger)
+        public PaymentService(HttpClient httpClient, IConfiguration configuration, ILogger<PaymentService> logger, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
             _configuration = configuration;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<PaymentInfo?> GetPaymentByBookingIdAsync(Guid bookingId, Guid userId)
@@ -31,6 +34,7 @@ namespace TransitAFC.Services.Ticket.API.Services
             try
             {
                 var paymentServiceUrl = _configuration["Services:PaymentService:BaseUrl"];
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetCurrentToken());
                 var response = await _httpClient.GetAsync($"{paymentServiceUrl}/api/payments/booking/{bookingId}");
 
                 if (!response.IsSuccessStatusCode)
@@ -54,7 +58,7 @@ namespace TransitAFC.Services.Ticket.API.Services
                 {
                     Id = payment.Id,
                     PaymentId = payment.PaymentId,
-                    Status = payment.Status?.ToString() ?? "Unknown",
+                    Status = payment.Status.ToString() ?? "Unknown",
                     Amount = payment.TotalAmount,
                     UserId = payment.UserId,
                     BookingId = payment.BookingId
@@ -72,6 +76,7 @@ namespace TransitAFC.Services.Ticket.API.Services
             try
             {
                 var paymentServiceUrl = _configuration["Services:PaymentService:BaseUrl"];
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetCurrentToken());
                 var content = new StringContent(JsonSerializer.Serialize(refundRequest), System.Text.Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.PostAsync($"{paymentServiceUrl}/api/payments/{paymentId}/refund", content);
@@ -84,15 +89,52 @@ namespace TransitAFC.Services.Ticket.API.Services
                 return false;
             }
         }
+
+        private string? GetCurrentToken()
+        {
+            try
+            {
+                var context = _httpContextAccessor.HttpContext;
+                if (context == null) return null;
+
+                var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+
+                if (authHeader != null && authHeader.StartsWith("Bearer "))
+                {
+                    return authHeader.Substring("Bearer ".Length).Trim();
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting current token");
+                return null;
+            }
+        }
     }
 
     public class PaymentResponse
     {
         public Guid Id { get; set; }
         public string PaymentId { get; set; } = string.Empty;
-        public object? Status { get; set; }
+        public PaymentStatus Status { get; set; }
         public decimal TotalAmount { get; set; }
         public Guid UserId { get; set; }
         public Guid BookingId { get; set; }
+    }
+
+    public enum PaymentStatus
+    {
+        Pending = 0,
+        Processing = 1,
+        Completed = 2,
+        Failed = 3,
+        Cancelled = 4,
+        Refunded = 5,
+        PartiallyRefunded = 6,
+        Expired = 7,
+        OnHold = 8,
+        Disputed = 9
     }
 }

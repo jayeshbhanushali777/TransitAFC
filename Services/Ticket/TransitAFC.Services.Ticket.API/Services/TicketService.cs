@@ -12,6 +12,7 @@ namespace TransitAFC.Services.Ticket.API.Services
     {
         private readonly ITicketRepository _ticketRepository;
         private readonly ITicketValidationRepository _validationRepository;
+        private readonly ITicketQRCodeRepository _qrCodeRepository;
         private readonly ITicketHistoryRepository _historyRepository;
         private readonly IQRCodeService _qrCodeService;
         private readonly IPaymentService _paymentService;
@@ -23,6 +24,7 @@ namespace TransitAFC.Services.Ticket.API.Services
         public TicketService(
             ITicketRepository ticketRepository,
             ITicketValidationRepository validationRepository,
+            ITicketQRCodeRepository qrCodeRepository,
             ITicketHistoryRepository historyRepository,
             IQRCodeService qrCodeService,
             IPaymentService paymentService,
@@ -33,6 +35,7 @@ namespace TransitAFC.Services.Ticket.API.Services
         {
             _ticketRepository = ticketRepository;
             _validationRepository = validationRepository;
+            _qrCodeRepository = qrCodeRepository;
             _historyRepository = historyRepository;
             _qrCodeService = qrCodeService;
             _paymentService = paymentService;
@@ -127,10 +130,18 @@ namespace TransitAFC.Services.Ticket.API.Services
                 ticket.QRCodeImage = qrImage;
                 ticket.QRCodeHash = qrHash;
 
+                
+
+                
+                
+
+                // Save ticket
+                var createdTicket = await _ticketRepository.CreateAsync(ticket);
                 // Create QR code record
                 var qrCode = new TicketQRCode
                 {
                     TicketId = ticket.Id,
+                    Ticket = createdTicket,
                     QRCodeId = GenerateQRCodeId(),
                     QRCodeData = qrData,
                     QRCodeHash = qrHash,
@@ -144,10 +155,8 @@ namespace TransitAFC.Services.Ticket.API.Services
                     Instructions = "Show this QR code to the validator"
                 };
 
-                ticket.QRCodes.Add(qrCode);
-
-                // Save ticket
-                var createdTicket = await _ticketRepository.CreateAsync(ticket);
+                var qrCodeRecord = await _qrCodeRepository.CreateAsync(qrCode);
+                createdTicket.QRCodes.Add(qrCode);
 
                 // Create history entry
                 await CreateHistoryEntryAsync(createdTicket.Id, TicketStatus.Draft, TicketStatus.Generated, "Generated", userId, "Ticket generated successfully");

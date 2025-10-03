@@ -117,7 +117,7 @@ namespace TransitAFC.Services.Ticket.Core.Models
 
         // QR Code Information
         [Required]
-        [StringLength(500)]
+        [StringLength(2000)]
         public string QRCodeData { get; set; } = string.Empty; // Encrypted QR code data
 
         [StringLength(100)]

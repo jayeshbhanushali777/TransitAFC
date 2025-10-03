@@ -9,6 +9,7 @@ using TransitAFC.Services.Ticket.API.Services;
 using TransitAFC.Services.Ticket.Infrastructure;
 using TransitAFC.Services.Ticket.Infrastructure.Repositories;
 using TransitAFC.Services.Ticket.Infrastructure.Services;
+using TransitAFC.Shared.Infrastructure.Extensions;
 using TransitAFC.Shared.Security;
 
 // Configure Serilog
@@ -30,6 +31,7 @@ builder.Services.AddControllers()
         options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
     });
 
+builder.Services.AddTokenForwarding();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -104,6 +106,7 @@ builder.Services.AddHttpClient<IPaymentService, PaymentService>(client =>
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketValidationRepository, TicketValidationRepository>();
 builder.Services.AddScoped<ITicketHistoryRepository, TicketHistoryRepository>();
+builder.Services.AddScoped<ITicketQRCodeRepository, TicketQRCodeRepository>();
 
 // Infrastructure Services
 builder.Services.AddScoped<IQRCodeService, QRCodeService>();
@@ -114,6 +117,19 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+builder.Services.AddHttpClient<BookingService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(30);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+})
+.AddTokenForwarding();
+builder.Services.AddHttpClient<PaymentService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(30);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+})
+.AddTokenForwarding();
 
 // JWT Authentication
 var jwtSecret = builder.Configuration["Jwt:Secret"] ?? Environment.GetEnvironmentVariable("JWT_SECRET");

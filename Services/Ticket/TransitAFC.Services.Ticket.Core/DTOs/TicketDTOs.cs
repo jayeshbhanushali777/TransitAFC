@@ -248,7 +248,7 @@ namespace TransitAFC.Services.Ticket.Core.DTOs
     public class ValidateTicketRequest
     {
         [Required]
-        [StringLength(500)]
+        [StringLength(2000)]
         public string QRCodeData { get; set; } = string.Empty;
 
         [Required]

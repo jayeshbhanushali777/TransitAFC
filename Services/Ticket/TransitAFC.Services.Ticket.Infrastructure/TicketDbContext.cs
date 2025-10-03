@@ -50,7 +50,7 @@ namespace TransitAFC.Services.Ticket.Infrastructure
                 entity.Property(e => e.PassengerType).HasMaxLength(20).HasDefaultValue("Adult");
                 entity.Property(e => e.PassengerPhone).HasMaxLength(15);
                 entity.Property(e => e.PassengerEmail).HasMaxLength(100);
-                entity.Property(e => e.QRCodeData).IsRequired().HasMaxLength(500);
+                entity.Property(e => e.QRCodeData).IsRequired().HasMaxLength(2000);
                 entity.Property(e => e.QRCodeHash).HasMaxLength(100);
 
                 entity.Property(e => e.BasePrice).HasPrecision(10, 2);

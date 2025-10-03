@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Headers;
+using System.Text.Json;
 using TransitAFC.Shared.Common.DTOs;
 
 namespace TransitAFC.Services.Ticket.API.Services
@@ -8,12 +9,14 @@ namespace TransitAFC.Services.Ticket.API.Services
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
         private readonly ILogger<BookingService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BookingService(HttpClient httpClient, IConfiguration configuration, ILogger<BookingService> logger)
+        public BookingService(HttpClient httpClient, IConfiguration configuration, ILogger<BookingService> logger, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
             _configuration = configuration;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<BookingInfo?> GetBookingAsync(Guid bookingId, Guid userId)
@@ -21,6 +24,7 @@ namespace TransitAFC.Services.Ticket.API.Services
             try
             {
                 var bookingServiceUrl = _configuration["Services:BookingService:BaseUrl"];
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetCurrentToken());
                 var response = await _httpClient.GetAsync($"{bookingServiceUrl}/api/bookings/{bookingId}");
 
                 if (!response.IsSuccessStatusCode)
@@ -52,6 +56,29 @@ namespace TransitAFC.Services.Ticket.API.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error getting booking {BookingId}", bookingId);
+                return null;
+            }
+        }
+
+        private string? GetCurrentToken()
+        {
+            try
+            {
+                var context = _httpContextAccessor.HttpContext;
+                if (context == null) return null;
+
+                var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+
+                if (authHeader != null && authHeader.StartsWith("Bearer "))
+                {
+                    return authHeader.Substring("Bearer ".Length).Trim();
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting current token");
                 return null;
             }
         }

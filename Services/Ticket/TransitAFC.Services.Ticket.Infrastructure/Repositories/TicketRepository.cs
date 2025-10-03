@@ -128,8 +128,16 @@ namespace TransitAFC.Services.Ticket.Infrastructure.Repositories
 
         public async Task<Core.Models.Ticket> CreateAsync(Core.Models.Ticket ticket)
         {
-            _context.Tickets.Add(ticket);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Tickets.Add(ticket);
+                await _context.SaveChangesAsync();
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return ticket;
         }
 

@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Common\TransitAFC.Shared.Common\TransitAFC.Shared.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Shared\Security\TransitAFC.Shared.Security\TransitAFC.Shared.Security.csproj" />
     <ProjectReference Include="..\TransitAFC.Services.Ticket.Core\TransitAFC.Services.Ticket.Core.csproj" />
     <ProjectReference Include="..\TransitAFC.Services.Ticket.Infrastructure\TransitAFC.Services.Ticket.Infrastructure.csproj" />
