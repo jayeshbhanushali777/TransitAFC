@@ -8,11 +8,13 @@ using TransitAFC.Services.Payment.Infrastructure;
 using TransitAFC.Services.Payment.Infrastructure.Gateways;
 using TransitAFC.Services.Payment.Infrastructure.Repositories;
 using TransitAFC.Shared.Security;
+using TransitAFC.Shared.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddTokenForwarding();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -68,6 +70,7 @@ builder.Services.AddHttpClient<StripeGateway>();
 // Repositories
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentHistoryRepository, PaymentHistoryRepository>();
+builder.Services.AddScoped<IPaymentTransactionRepository, PaymentTransactionRepository>();
 
 // Payment Gateways
 builder.Services.AddScoped<RazorpayGateway>();
@@ -79,6 +82,13 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+builder.Services.AddHttpClient<BookingService>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(30);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+})
+.AddTokenForwarding();
 
 // JWT Authentication
 var jwtSecret = builder.Configuration["Jwt:Secret"] ?? Environment.GetEnvironmentVariable("JWT_SECRET");

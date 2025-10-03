@@ -77,7 +77,7 @@ namespace TransitAFC.Services.Booking.Core.DTOs
         public StationInfo DestinationStation { get; set; } = new();
         public DateTime DepartureTime { get; set; }
         public DateTime? ArrivalTime { get; set; }
-        public BookingStatus Status { get; set; }
+        public string Status { get; set; }
         public int PassengerCount { get; set; }
         public decimal TotalFare { get; set; }
         public decimal? DiscountAmount { get; set; }

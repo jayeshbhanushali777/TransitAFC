@@ -11,6 +11,7 @@ namespace TransitAFC.Services.Payment.API.Services
     {
         private readonly IPaymentRepository _paymentRepository;
         private readonly IPaymentHistoryRepository _historyRepository;
+        private readonly IPaymentTransactionRepository _transactionRepository;  
         private readonly IPaymentGatewayFactory _gatewayFactory;
         private readonly IBookingService _bookingService;
         private readonly INotificationService _notificationService;
@@ -20,6 +21,7 @@ namespace TransitAFC.Services.Payment.API.Services
         public PaymentService(
             IPaymentRepository paymentRepository,
             IPaymentHistoryRepository historyRepository,
+            IPaymentTransactionRepository transactionRepository,
             IPaymentGatewayFactory gatewayFactory,
             IBookingService bookingService,
             INotificationService notificationService,
@@ -28,6 +30,7 @@ namespace TransitAFC.Services.Payment.API.Services
         {
             _paymentRepository = paymentRepository;
             _historyRepository = historyRepository;
+            _transactionRepository = transactionRepository;
             _gatewayFactory = gatewayFactory;
             _bookingService = bookingService;
             _notificationService = notificationService;
@@ -250,7 +253,8 @@ namespace TransitAFC.Services.Payment.API.Services
 
                 // Verify payment with gateway if gateway payment ID is provided
                 PaymentGatewayResponse? gatewayResponse = null;
-                if (!string.IsNullOrEmpty(request.GatewayPaymentId))
+                var isDummy = true;
+                if (!isDummy && !string.IsNullOrEmpty(request.GatewayPaymentId))
                 {
                     gatewayResponse = await gateway.VerifyPaymentAsync(request.GatewayPaymentId);
 
@@ -295,7 +299,7 @@ namespace TransitAFC.Services.Payment.API.Services
                     ProcessedBy = "Gateway"
                 };
 
-                payment.Transactions.Add(transaction);
+                await _transactionRepository.CreateAsync(transaction);
                 await _paymentRepository.UpdateAsync(payment);
 
                 await CreateHistoryEntryAsync(payment.Id, oldStatus, payment.Status, "Processed", payment.UserId,

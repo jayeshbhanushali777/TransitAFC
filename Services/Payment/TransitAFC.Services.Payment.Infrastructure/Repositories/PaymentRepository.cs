@@ -127,7 +127,7 @@ namespace TransitAFC.Services.Payment.Infrastructure.Repositories
         {
             payment.UpdatedAt = DateTime.UtcNow;
             _context.Payments.Update(payment);
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             return payment;
         }
 
